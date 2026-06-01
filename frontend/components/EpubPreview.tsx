@@ -55,11 +55,13 @@ export default function EpubPreview({ epubUrl, version }: Props) {
 
       book.locations.generate(1024).then(() => {
         if (cancelled) return;
-        setPage((p) => ({ ...p, total: book.locations.total }));
+        const locs = book.locations as any;
+        setPage((p) => ({ ...p, total: locs.total ?? locs.length() ?? 0 }));
       });
 
       rendition.on("locationChanged", (loc: any) => {
-        const idx = book.locations.locationFromCfi(loc.start.cfi);
+        const locs = book.locations as any;
+        const idx = locs.locationFromCfi?.(loc.start.cfi) ?? 0;
         setPage((p) => ({ ...p, current: (idx ?? 0) + 1 }));
       });
     };
