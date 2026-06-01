@@ -1,0 +1,5 @@
+{
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@epubflow_api_url"
+  }
+}
